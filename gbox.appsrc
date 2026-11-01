@@ -1,0 +1,23 @@
+{
+  "version": "1.1.2",
+  "sourceName": "Aidoku AI",
+  "sourceAuthor": "Ranennder",
+  "sourceLinkTitle": "GitHub",
+  "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
+  "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
+  "sourceUpdateTime": "2026-11-01T21:44:23+0000",
+  "sourceDescription": "Aidoku AI для iPhone: улучшение страниц на ПК и источники Suwayomi.",
+  "appCategories": ["Манга"],
+  "appRepositories": [
+    {
+      "appType": "SELF_SIGN",
+      "appCateIndex": 0,
+      "appUpdateTime": "2026-11-01T17:50:11+0000",
+      "appName": "Aidoku AI",
+      "appVersion": "0.9",
+      "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-preview-2026-11-01-r2/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Сборка r2 с исправлением запуска. AI Companion и совместимые расширения Mihon через Suwayomi на ПК. Перед установкой подпишите IPA своим сертификатом."
+    }
+  ]
+}
