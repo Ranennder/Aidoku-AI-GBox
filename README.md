@@ -1,6 +1,18 @@
-# Aidoku AI — источник GBox
+# Aidoku AI — источники Feather и GBox
 
-Публичный репозиторий для загрузки Aidoku AI через GBox.
+Публичный репозиторий для загрузки Aidoku AI через Feather и GBox.
+
+## Feather
+
+В Feather открой **Sources → + → Source URL**, вставь ссылку и сохрани источник:
+
+```text
+https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/feather.json
+```
+
+Выбери **Aidoku AI 0.9.1 (5)**, скачай IPA и подпиши своим сертификатом перед установкой.
+
+## GBox
 
 В разделе источников GBox добавь эту ссылку:
 
@@ -31,4 +43,6 @@ SHA-256 IPA: `bc592a022b4cce2fb9969a09b9f0767da9fac04d2a78b5561f7e5481060ff2f1`.
 
 Aidoku AI основан на [Aidoku](https://github.com/Aidoku/Aidoku); права исходных авторов сохранены. Лицензия кода приложения — GPLv3, переводы имеют отдельную лицензию Apache 2.0. Архив содержит полный код коммита `9f0794038c467b1c7a1e7f193e168b54ad464c1c`, из которого собрана IPA, включая файлы проекта, описание зависимостей и инструкции сборки.
 
-Формат источника описан в [официальной документации GBox](https://github.com/GBoxApp/GBoxSource). При обновлении приложения нужно менять ссылки/версию в `gbox.appsrc` и `sourceUpdateTime`, чтобы GBox перечитал список.
+Источник Feather использует формат AltStore, поддерживаемый [официальным Feather](https://github.com/claration/feather). Формат GBox описан в [официальной документации GBox](https://github.com/GBoxApp/GBoxSource).
+
+При обновлении приложения нужно менять версию, ссылку на IPA, размер и дату в `feather.json`, а также версию, ссылку и `sourceUpdateTime` в `gbox.appsrc`.

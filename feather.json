@@ -1,0 +1,33 @@
+{
+  "name": "Aidoku AI",
+  "identifier": "app.ranennder.AidokuAI.source",
+  "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
+  "website": "https://github.com/Ranennder/Aidoku-AI-GBox",
+  "apps": [
+    {
+      "name": "Aidoku AI",
+      "bundleIdentifier": "app.ranennder.AidokuAI",
+      "developerName": "Ranennder",
+      "localizedDescription": "Чтение манги с улучшением страниц через AI Companion на ПК и источниками Suwayomi. В версии 0.9.1 добавлен автоматический поиск Companion в локальной сети. Перед установкой подпишите IPA своим сертификатом.",
+      "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
+      "versions": [
+        {
+          "version": "0.9.1",
+          "buildVersion": "5",
+          "date": "2026-11-03T19:23:43Z",
+          "localizedDescription": "Автоматический поиск Companion и доступного токена в локальной сети. Оставьте адрес сервера пустым или нажмите «Найти ПК» в настройках AI на компьютере.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.1/Aidoku-AI-unsigned.ipa",
+          "size": 14648951,
+          "minOSVersion": "15.0"
+        }
+      ],
+      "version": "0.9.1",
+      "versionDate": "2026-11-03T19:23:43Z",
+      "versionDescription": "Автоматический поиск Companion и доступного токена в локальной сети. Оставьте адрес сервера пустым или нажмите «Найти ПК» в настройках AI на компьютере.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.1/Aidoku-AI-unsigned.ipa",
+      "size": 14648951,
+      "minOSVersion": "15.0"
+    }
+  ],
+  "news": []
+}
