@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-04T06:19:37+0000",
+  "sourceUpdateTime": "2026-11-04T07:16:46+0000",
   "sourceDescription": "Aidoku AI для iPhone: улучшение страниц на ПК и источники Suwayomi.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-04T06:19:37+0000",
+      "appUpdateTime": "2026-11-04T07:16:46+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.6",
+      "appVersion": "0.9.7",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.6/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Приложение непрерывно запрашивает максимальную частоту экрана во всех активных разделах, включая замедление прокрутки. Зум синхронизирован с кадрами дисплея вместо таймера 400 Гц. Убраны повторные перерасчёты страниц и обновления прогресса; обработка встроенных изображений и кэша вынесена с главного потока. Запрос максимальной частоты увеличивает расход батареи; фактическую частоту определяет iOS. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.7/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Исправлены конфликты зума с жестами, поворотом и автопрокруткой; запоздавшая загрузка больше не возвращает очищенные страницы. Проверка подключения проверяет доступ с токеном. Импорт Mihon сохраняет существующие категории Suwayomi и добавляет категории из бэкапа. Непрерывный запрос максимальной частоты экрана во всём активном приложении сохранён. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
