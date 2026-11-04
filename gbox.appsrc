@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-04T03:18:11+0000",
+  "sourceUpdateTime": "2026-11-04T04:08:59+0000",
   "sourceDescription": "Aidoku AI для iPhone: улучшение страниц на ПК и источники Suwayomi.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-04T03:18:11+0000",
+      "appUpdateTime": "2026-11-04T04:08:59+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.4",
+      "appVersion": "0.9.5",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.4/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Исправлен автоматический поиск Companion на iPhone, авторизация Suwayomi, связи истории в резервных копиях и конфликты категорий при импорте Mihon. Убрана повторная отправка страниц после обрыва с неизвестным результатом. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.5/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Отмена поиска ПК для одной страницы больше не задерживает её закрытие и не отменяет поиск для других страниц. После перезапуска Companion автоматически найденный токен обновляется при подтверждённом отказе авторизации. Первое обнаружение ПК и показ страницы используют общий кэш предзагрузки; перезагрузка AI-страницы заново получает оригинал. Исправлены дубли истории Mihon, повтор запросов Suwayomi после частичного ответа и проверка подключения через путь reverse proxy. Автопрокрутка останавливается при блокировке телефона и уходе из приложения. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
