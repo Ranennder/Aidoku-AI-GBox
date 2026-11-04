@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-04T00:23:09+0000",
+  "sourceUpdateTime": "2026-11-04T01:49:34+0000",
   "sourceDescription": "Aidoku AI для iPhone: улучшение страниц на ПК и источники Suwayomi.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-04T00:23:09+0000",
+      "appUpdateTime": "2026-11-04T01:49:34+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.2",
+      "appVersion": "0.9.3",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.2/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Длинные страницы теперь обрабатываются на ПК без ограничения локального улучшателя. Прежний кэш будет пересчитан заново. В настройках «AI на компьютере» появился «Последний ответ ПК»: размеры до/после, время запроса и дата завершения. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.3/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Прямой импорт .tachibk и .proto.gz на iPhone: библиотека, категории, история, прочитанные главы и прогресс страниц через Suwayomi. Записи объединяются с текущей базой. Полный исходный бэкап сохраняется для остальных полей Mihon. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
