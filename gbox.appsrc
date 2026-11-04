@@ -5,8 +5,8 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-04T08:22:13+0000",
-  "sourceDescription": "Aidoku AI для iPhone: улучшение страниц на ПК и источники Suwayomi.",
+  "sourceUpdateTime": "2026-11-04T20:57:21+0000",
+  "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
   ],
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-04T08:22:13+0000",
+      "appUpdateTime": "2026-11-04T20:57:21+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.8",
+      "appVersion": "0.9.9",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.8/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Исправлена передача сессии входа в MangaBuff: авторизованная сессия источника имеет приоритет перед старой анонимной. Выход очищает сетевые cookies сайта вместе с окном входа. Нативные MangaLib и MangaBuff устанавливаются через отдельный список источников. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.9/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Добавлены нативные источники из списка Mihon. Исправлен вход через зеркала сайтов, передача сессии входа и загрузка картинок с серверов изображений. Обнови список источников в настройках Aidoku AI. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }

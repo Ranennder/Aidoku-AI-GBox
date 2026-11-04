@@ -8,9 +8,18 @@
       "name": "Aidoku AI",
       "bundleIdentifier": "app.ranennder.AidokuAI",
       "developerName": "Ranennder",
-      "localizedDescription": "Aidoku AI для iPhone: нативные MangaLib и MangaBuff, источники Suwayomi, импорт Mihon и улучшение страниц через Companion на ПК. Перед установкой подпиши IPA своим сертификатом.",
+      "localizedDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon и улучшение страниц через Companion на ПК. Перед установкой подпиши IPA своим сертификатом.",
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
+        {
+          "version": "0.9.9",
+          "buildVersion": "13",
+          "date": "2026-11-04T20:57:21Z",
+          "localizedDescription": "Добавлены нативные источники из списка Mihon. Исправлен вход через зеркала сайтов, передача сессии входа и загрузка картинок с серверов изображений. Обнови список источников в настройках Aidoku AI.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.9/Aidoku-AI-unsigned.ipa",
+          "size": 14886645,
+          "minOSVersion": "15.0"
+        },
         {
           "version": "0.9.8",
           "buildVersion": "12",
@@ -21,11 +30,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.8",
-      "versionDate": "2026-11-04T08:22:13Z",
-      "versionDescription": "Исправлена передача сессии входа в MangaBuff: авторизованная сессия источника имеет приоритет перед старой анонимной. Выход очищает сетевые cookies сайта вместе с окном входа. Нативные MangaLib и MangaBuff устанавливаются через отдельный список источников.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.8/Aidoku-AI-unsigned.ipa",
-      "size": 14883711,
+      "version": "0.9.9",
+      "versionDate": "2026-11-04T20:57:21Z",
+      "versionDescription": "Добавлены нативные источники из списка Mihon. Исправлен вход через зеркала сайтов, передача сессии входа и загрузка картинок с серверов изображений. Обнови список источников в настройках Aidoku AI.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.9/Aidoku-AI-unsigned.ipa",
+      "size": 14886645,
       "minOSVersion": "15.0"
     }
   ],
