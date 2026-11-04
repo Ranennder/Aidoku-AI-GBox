@@ -8,24 +8,24 @@
       "name": "Aidoku AI",
       "bundleIdentifier": "app.ranennder.AidokuAI",
       "developerName": "Ranennder",
-      "localizedDescription": "Aidoku AI для iPhone: импорт бэкапов Mihon с историей и прогрессом, улучшение страниц через Companion на ПК и источники Suwayomi. Перед установкой подпиши IPA своим сертификатом.",
+      "localizedDescription": "Aidoku AI для iPhone: нативные MangaLib и MangaBuff, источники Suwayomi, импорт Mihon и улучшение страниц через Companion на ПК. Перед установкой подпиши IPA своим сертификатом.",
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
-          "version": "0.9.7",
-          "buildVersion": "11",
-          "date": "2026-11-04T07:16:46Z",
-          "localizedDescription": "Исправлены конфликты зума с жестами, поворотом и автопрокруткой; запоздавшая загрузка больше не возвращает очищенные страницы. Проверка подключения проверяет доступ с токеном. Импорт Mihon сохраняет существующие категории Suwayomi и добавляет категории из бэкапа. Непрерывный запрос максимальной частоты экрана во всём активном приложении сохранён.",
-          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.7/Aidoku-AI-unsigned.ipa",
-          "size": 14879332,
+          "version": "0.9.8",
+          "buildVersion": "12",
+          "date": "2026-11-04T08:22:13Z",
+          "localizedDescription": "Исправлена передача сессии входа в MangaBuff: авторизованная сессия источника имеет приоритет перед старой анонимной. Выход очищает сетевые cookies сайта вместе с окном входа. Нативные MangaLib и MangaBuff устанавливаются через отдельный список источников.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.8/Aidoku-AI-unsigned.ipa",
+          "size": 14883711,
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.7",
-      "versionDate": "2026-11-04T07:16:46Z",
-      "versionDescription": "Исправлены конфликты зума с жестами, поворотом и автопрокруткой; запоздавшая загрузка больше не возвращает очищенные страницы. Проверка подключения проверяет доступ с токеном. Импорт Mihon сохраняет существующие категории Suwayomi и добавляет категории из бэкапа. Непрерывный запрос максимальной частоты экрана во всём активном приложении сохранён.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.7/Aidoku-AI-unsigned.ipa",
-      "size": 14879332,
+      "version": "0.9.8",
+      "versionDate": "2026-11-04T08:22:13Z",
+      "versionDescription": "Исправлена передача сессии входа в MangaBuff: авторизованная сессия источника имеет приоритет перед старой анонимной. Выход очищает сетевые cookies сайта вместе с окном входа. Нативные MangaLib и MangaBuff устанавливаются через отдельный список источников.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.8/Aidoku-AI-unsigned.ipa",
+      "size": 14883711,
       "minOSVersion": "15.0"
     }
   ],
