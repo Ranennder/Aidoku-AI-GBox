@@ -12,20 +12,20 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
-          "version": "0.9.3",
-          "buildVersion": "7",
-          "date": "2026-11-04T01:49:34Z",
-          "localizedDescription": "Прямой импорт .tachibk и .proto.gz на iPhone: библиотека, категории, история, прочитанные главы и прогресс страниц через Suwayomi. Записи объединяются с текущей базой. Полный исходный бэкап сохраняется для остальных полей Mihon.",
-          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.3/Aidoku-AI-unsigned.ipa",
-          "size": 14812656,
+          "version": "0.9.4",
+          "buildVersion": "8",
+          "date": "2026-11-04T03:18:11Z",
+          "localizedDescription": "Исправлен автоматический поиск Companion на iPhone: зависшие адреса больше не блокируют проверку ПК. Исправлены авторизация Suwayomi, связи истории в резервных копиях и конфликты категорий при импорте Mihon. Убрана повторная отправка страниц после обрыва с неизвестным результатом.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.4/Aidoku-AI-unsigned.ipa",
+          "size": 14834970,
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.3",
-      "versionDate": "2026-11-04T01:49:34Z",
-      "versionDescription": "Прямой импорт .tachibk и .proto.gz на iPhone: библиотека, категории, история, прочитанные главы и прогресс страниц через Suwayomi. Записи объединяются с текущей базой. Полный исходный бэкап сохраняется для остальных полей Mihon.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.3/Aidoku-AI-unsigned.ipa",
-      "size": 14812656,
+      "version": "0.9.4",
+      "versionDate": "2026-11-04T03:18:11Z",
+      "versionDescription": "Исправлен автоматический поиск Companion на iPhone: зависшие адреса больше не блокируют проверку ПК. Исправлены авторизация Suwayomi, связи истории в резервных копиях и конфликты категорий при импорте Mihon. Убрана повторная отправка страниц после обрыва с неизвестным результатом.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.4/Aidoku-AI-unsigned.ipa",
+      "size": 14834970,
       "minOSVersion": "15.0"
     }
   ],
