@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Release containing the canonical source ZIP (draft or published)
+        description: Target application release tag (ai-X.Y.Z)
         required: true
         default: ai-0.9.9
         type: string
@@ -49,13 +49,14 @@ jobs:
           with open(os.environ["GITHUB_ENV"], "a") as output:
               output.write(f"SOURCE_VERSION={version}\n")
               output.write(f"SOURCE_ASSET_NAME=Aidoku-AI-source-{version}.zip\n")
+              output.write(f"SOURCE_INPUT_TAG=source-{os.environ['EXPECTED_SOURCE_COMMIT']}\n")
           PY
-      - name: Download source asset from this repository
+      - name: Download approved public source snapshot
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p "$RUNNER_TEMP/source-download"
-          gh release download "$SOURCE_RELEASE_TAG" --repo "$GITHUB_REPOSITORY" \
+          gh release download "$SOURCE_INPUT_TAG" --repo "$GITHUB_REPOSITORY" \
             --pattern "$SOURCE_ASSET_NAME" --dir "$RUNNER_TEMP/source-download"
       - name: Verify and extract canonical source
         run: |
@@ -128,7 +129,8 @@ jobs:
               raise SystemExit("Expected ProMotion and local-network metadata")
           report = {"source_commit": os.environ["EXPECTED_SOURCE_COMMIT"], "source_zip_sha256": digest,
                     "source_zip_bytes": archive.stat().st_size, "source_files": sum(not item.is_dir() for item in entries),
-                    "version": version, "release_tag": os.environ["SOURCE_RELEASE_TAG"], "run_id": os.environ["GITHUB_RUN_ID"]}
+                    "version": version, "release_tag": os.environ["SOURCE_RELEASE_TAG"],
+                    "input_release_tag": os.environ["SOURCE_INPUT_TAG"], "run_id": os.environ["GITHUB_RUN_ID"]}
           (root / "build").mkdir(exist_ok=True)
           (root / "build/source-provenance.json").write_text(json.dumps(report, indent=2) + "\n")
           print(json.dumps(report, indent=2))
