@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.10",
+          "buildVersion": "14",
+          "date": "2026-11-05T02:48:54Z",
+          "localizedDescription": "В читалке появилась верхняя кнопка AI: сравнение оригинала с улучшенной страницей и выбор качества. Текущая страница получает приоритет обработки на ПК, а следующая глава заранее загружается в оригинале. Исправлен кэш глав: смена качества после перехода к другой главе сохраняет правильные страницы. Для лучшего сохранения деталей в быстром режиме обнови Companion до 0.1.30.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.10/Aidoku-AI-unsigned.ipa",
+          "size": 14930914,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.9",
           "buildVersion": "13",
           "date": "2026-11-04T20:57:21Z",
@@ -30,11 +39,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.9",
-      "versionDate": "2026-11-04T20:57:21Z",
-      "versionDescription": "Добавлены нативные источники из списка Mihon. Исправлен вход через зеркала сайтов, передача сессии входа и загрузка картинок с серверов изображений. Обнови список источников в настройках Aidoku AI.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.9/Aidoku-AI-unsigned.ipa",
-      "size": 14886645,
+      "version": "0.9.10",
+      "versionDate": "2026-11-05T02:48:54Z",
+      "versionDescription": "В читалке появилась верхняя кнопка AI: сравнение оригинала с улучшенной страницей и выбор качества. Текущая страница получает приоритет обработки на ПК, а следующая глава заранее загружается в оригинале. Исправлен кэш глав: смена качества после перехода к другой главе сохраняет правильные страницы. Для лучшего сохранения деталей в быстром режиме обнови Companion до 0.1.30.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.10/Aidoku-AI-unsigned.ipa",
+      "size": 14930914,
       "minOSVersion": "15.0"
     }
   ],
