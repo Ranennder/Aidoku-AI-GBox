@@ -5,8 +5,8 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-05T02:48:54+0000",
-  "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon и улучшение страниц на ПК.",
+  "sourceUpdateTime": "2026-11-06T18:59:54+0000",
+  "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon, облачная синхронизация истории и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
   ],
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-05T02:48:54+0000",
+      "appUpdateTime": "2026-11-06T18:59:54+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.10",
+      "appVersion": "0.9.11",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.10/Aidoku-AI-unsigned.ipa",
-      "appDescription": "В читалке появилась верхняя кнопка AI: сравнение оригинала с улучшенной страницей и выбор качества. Текущая страница получает приоритет обработки на ПК, а следующая глава заранее загружается в оригинале. Исправлен кэш глав: смена качества после перехода к другой главе сохраняет правильные страницы. Для лучшего сохранения деталей в быстром режиме обнови Companion до 0.1.30. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.11/Aidoku-AI-unsigned.ipa",
+      "appDescription": "История чтения, прочитанные главы и прогресс страниц синхронизируются с Mihon AI 0.1.30 через Яндекс Диск/WebDAV без ПК. Уменьшена нагрузка при прокрутке длинных глав и отображении загрузки страниц. Синхронизация истории не заменяет полную резервную копию. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
