@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.12",
+          "buildVersion": "16",
+          "date": "2026-11-06T20:03:10Z",
+          "localizedDescription": "При включённом AI текущая и следующая глава заранее обрабатываются на ПК, пока ты читаешь. Видимая страница получает приоритет; готовые результаты сохраняются в дисковом кэше. Сокращены повторные расчёты размеров страниц, исправлена смена изображений и освобождение старых буферов.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.12/Aidoku-AI-unsigned.ipa",
+          "size": 15113637,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.11",
           "buildVersion": "15",
           "date": "2026-11-06T18:59:54Z",
@@ -48,11 +57,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.11",
-      "versionDate": "2026-11-06T18:59:54Z",
-      "versionDescription": "История чтения, прочитанные главы и прогресс страниц синхронизируются с Mihon AI 0.1.30 через Яндекс Диск/WebDAV без ПК. Уменьшена нагрузка при прокрутке длинных глав и отображении загрузки страниц. Синхронизация истории не заменяет полную резервную копию.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.11/Aidoku-AI-unsigned.ipa",
-      "size": 15088073,
+      "version": "0.9.12",
+      "versionDate": "2026-11-06T20:03:10Z",
+      "versionDescription": "При включённом AI текущая и следующая глава заранее обрабатываются на ПК, пока ты читаешь. Видимая страница получает приоритет; готовые результаты сохраняются в дисковом кэше. Сокращены повторные расчёты размеров страниц, исправлена смена изображений и освобождение старых буферов.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.12/Aidoku-AI-unsigned.ipa",
+      "size": 15113637,
       "minOSVersion": "15.0"
     }
   ],
