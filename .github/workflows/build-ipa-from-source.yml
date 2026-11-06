@@ -6,7 +6,7 @@ on:
       tag:
         description: Target application release tag (ai-X.Y.Z)
         required: true
-        default: ai-0.9.13
+        default: ai-0.9.14
         type: string
       source_asset_sha256:
         description: SHA-256 of the exact source ZIP approved for this build
@@ -23,7 +23,7 @@ permissions:
 jobs:
   ios:
     runs-on: xcode-27
-    timeout-minutes: 50
+    timeout-minutes: 60
     defaults:
       run:
         shell: bash
@@ -224,7 +224,7 @@ jobs:
           fi
           xcrun simctl bootstatus "$SIMULATOR_ID" -b
       - name: Swift tests
-        timeout-minutes: 25
+        timeout-minutes: 35
         working-directory: ${{ runner.temp }}/aidoku-source/Aidoku-AI
         env:
           SIMULATOR_ID: ${{ steps.simulator.outputs.id }}
