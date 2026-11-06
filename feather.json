@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.13",
+          "buildVersion": "17",
+          "date": "2026-11-06T22:57:24Z",
+          "localizedDescription": "Вертикальная читалка использует один нативный контейнер прокрутки. Добавлен режим «ПК сам скачивает страницы»: первые 30% главы идут в приоритете, затем остаток и следующая глава. Companion скачивает страницы параллельно, обрабатывает готовые пакетами и сохраняет результат для повторной выдачи.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.13/Aidoku-AI-unsigned.ipa",
+          "size": 15190388,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.12",
           "buildVersion": "16",
           "date": "2026-11-06T20:03:10Z",
@@ -57,11 +66,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.12",
-      "versionDate": "2026-11-06T20:03:10Z",
-      "versionDescription": "При включённом AI текущая и следующая глава заранее обрабатываются на ПК, пока ты читаешь. Видимая страница получает приоритет; готовые результаты сохраняются в дисковом кэше. Сокращены повторные расчёты размеров страниц, исправлена смена изображений и освобождение старых буферов.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.12/Aidoku-AI-unsigned.ipa",
-      "size": 15113637,
+      "version": "0.9.13",
+      "versionDate": "2026-11-06T22:57:24Z",
+      "versionDescription": "Вертикальная читалка использует один нативный контейнер прокрутки. Добавлен режим «ПК сам скачивает страницы»: первые 30% главы идут в приоритете, затем остаток и следующая глава. Companion скачивает страницы параллельно, обрабатывает готовые пакетами и сохраняет результат для повторной выдачи.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.13/Aidoku-AI-unsigned.ipa",
+      "size": 15190388,
       "minOSVersion": "15.0"
     }
   ],

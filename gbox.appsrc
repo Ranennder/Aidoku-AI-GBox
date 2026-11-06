@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-06T20:03:10+0000",
+  "sourceUpdateTime": "2026-11-06T22:57:24+0000",
   "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon, облачная синхронизация истории и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-06T20:03:10+0000",
+      "appUpdateTime": "2026-11-06T22:57:24+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.12",
+      "appVersion": "0.9.13",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.12/Aidoku-AI-unsigned.ipa",
-      "appDescription": "При включённом AI текущая и следующая глава заранее обрабатываются на ПК, пока ты читаешь. Видимая страница получает приоритет; готовые результаты сохраняются в дисковом кэше. Сокращены повторные расчёты размеров страниц, исправлена смена изображений и освобождение старых буферов. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.13/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Вертикальная читалка использует один нативный контейнер прокрутки. Добавлен режим «ПК сам скачивает страницы»: первые 30% главы идут в приоритете, затем остаток и следующая глава. Companion скачивает страницы параллельно, обрабатывает готовые пакетами и сохраняет результат для повторной выдачи. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
