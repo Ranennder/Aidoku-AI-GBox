@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-07T00:41:36+0000",
+  "sourceUpdateTime": "2026-11-07T04:38:44+0000",
   "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon, облачная синхронизация истории и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-07T00:41:36+0000",
+      "appUpdateTime": "2026-11-07T04:38:44+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.14",
+      "appVersion": "0.9.15",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.14/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Большие страницы в режиме «Детальный» рисуются видимыми фрагментами с сохранением полного разрешения. Пакетная обработка работает и при скачивании оригиналов телефоном: первая страница сразу, затем первые 30%, остаток и следующая глава. Галочка выбирает, кто скачивает оригиналы. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.15/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Отдельная ширина результата в пикселях для Fast и «Детального». Введите своё число в настройках AI; пропорции сохраняются. Авто: Fast — физическая ширина экрана, «Детальный» — втрое больше. Требуется Companion 0.1.33. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
