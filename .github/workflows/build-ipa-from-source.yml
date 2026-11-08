@@ -100,6 +100,7 @@ jobs:
               private func measure() {
                   var cases: [[String: Any]] = []
                   for target: CGFloat in [320, 460] {
+                      print("PROBE_CASE_START \(target)")
                       let host = UIView(frame: CGRect(x: 0, y: 0, width: target + 24, height: 800))
                       window!.rootViewController!.view.addSubview(host)
                       var opened = 0; var closed = 0
@@ -116,19 +117,27 @@ jobs:
                           banner.leadingAnchor.constraint(greaterThanOrEqualTo: host.safeAreaLayoutGuide.leadingAnchor, constant: 12),
                           banner.trailingAnchor.constraint(lessThanOrEqualTo: host.safeAreaLayoutGuide.trailingAnchor, constant: -12),
                           banner.widthAnchor.constraint(lessThanOrEqualToConstant: 460), width])
+                      print("PROBE_BEFORE_LAYOUT \(target)")
                       host.setNeedsLayout(); host.layoutIfNeeded()
+                      print("PROBE_AFTER_LAYOUT \(target) height=\(banner.frame.height)")
+                      let safeAreaWidth = host.safeAreaLayoutGuide.layoutFrame.width
+                      let expectedFrameWidth = min(safeAreaWidth - 24, 460)
                       let actualHeight = banner.frame.height
+                      print("PROBE_BEFORE_FITTING \(target)")
                       let fitting = banner.systemLayoutSizeFitting(CGSize(width: target, height: 0),
                           withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+                      print("PROBE_AFTER_FITTING \(target) height=\(fitting.height)")
                       let buttons = descendants(banner).compactMap { $0 as? UIButton }
                       let close = buttons.first { $0.accessibilityIdentifier == "appUpdateBannerClose" }!
                       let open = buttons.first { $0.accessibilityIdentifier == "appUpdateBannerOpen" }!
                       close.sendActions(for: .touchUpInside); open.sendActions(for: .touchUpInside)
                       let ambiguous = banner.hasAmbiguousLayout || banner.contentView.hasAmbiguousLayout
                       let passed = actualHeight >= 100 && actualHeight <= 400 && fitting.height >= 100
-                          && abs(banner.frame.width - target) < 1 && !ambiguous
+                          && abs(banner.frame.width - expectedFrameWidth) < 1 && !ambiguous
                           && close.frame.height >= 44 && open.frame.height >= 44 && opened == 1 && closed == 1
-                      cases.append(["targetWidth": target, "frameWidth": banner.frame.width, "frameHeight": actualHeight,
+                      cases.append(["targetWidth": target, "container_width": host.bounds.width,
+                          "safeAreaWidth": safeAreaWidth, "expectedFrameWidth": expectedFrameWidth,
+                          "frameWidth": banner.frame.width, "frameHeight": actualHeight,
                           "fittingWidth": fitting.width, "fittingHeight": fitting.height,
                           "hasAmbiguousLayout": banner.hasAmbiguousLayout,
                           "contentViewHasAmbiguousLayout": banner.contentView.hasAmbiguousLayout,
