@@ -47,10 +47,12 @@ jobs:
               'actual_banner_sha256': hashlib.sha256(actual).hexdigest(), 'actual_banner_unchanged': True}, indent=2))
           info = {'CFBundleIdentifier': 'app.ranennder.BannerLayoutProbe', 'CFBundleName': 'BannerProbe',
               'CFBundleExecutable': 'BannerProbe', 'CFBundlePackageType': 'APPL', 'CFBundleVersion': '1',
-              'CFBundleShortVersionString': '1.0', 'MinimumOSVersion': '15.0', 'UILaunchScreen': {},
+              'CFBundleShortVersionString': '1.0', 'CFBundleInfoDictionaryVersion': '6.0',
+              'MinimumOSVersion': '15.0', 'UILaunchScreen': {}, 'LSRequiresIPhoneOS': True,
+              'UIDeviceFamily': [1, 2], 'CFBundleSupportedPlatforms': ['iPhoneSimulator'],
               'UIApplicationSceneManifest': {'UIApplicationSupportsMultipleScenes': False,
               'UISceneConfigurations': {'UIWindowSceneSessionRoleApplication': [{'UISceneConfigurationName': 'Probe',
-              'UISceneDelegateClassName': 'BannerProbe.ProbeSceneDelegate'}]}}}
+              'UISceneClassName': 'UIWindowScene', 'UISceneDelegateClassName': 'BannerProbe.ProbeSceneDelegate'}]}}}
           Path('probe/BannerProbe.app/Info.plist').write_bytes(plistlib.dumps(info))
           PY
       - name: Minimal UIKit host
@@ -65,6 +67,11 @@ jobs:
                "APP_UPDATE_OPEN_HINT": "Opens release page", "APP_UPDATE_CLOSE": "Close"][key] ?? key
           }
           @main final class ProbeAppDelegate: UIResponder, UIApplicationDelegate {
+              func application(_ application: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+                  setbuf(stdout, nil)
+                  print("PROBE_APPLICATION_LAUNCHED")
+                  return true
+              }
               func application(_ application: UIApplication, configurationForConnecting session: UISceneSession,
                                options: UIScene.ConnectionOptions) -> UISceneConfiguration {
                   let configuration = UISceneConfiguration(name: "Probe", sessionRole: session.role)
@@ -74,13 +81,20 @@ jobs:
           }
           final class ProbeSceneDelegate: UIResponder, UIWindowSceneDelegate {
               var window: UIWindow?
+              var measured = false
               func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options: UIScene.ConnectionOptions) {
                   guard let scene = scene as? UIWindowScene else { return }
                   let window = UIWindow(windowScene: scene)
                   window.rootViewController = UIViewController()
                   self.window = window
                   window.makeKeyAndVisible()
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { self.measure() }
+                  print("PROBE_SCENE_CONNECTED")
+              }
+              func sceneDidBecomeActive(_ scene: UIScene) {
+                  guard !measured else { return }
+                  measured = true
+                  print("PROBE_SCENE_ACTIVE")
+                  DispatchQueue.main.async { self.measure() }
               }
               private func descendants(_ view: UIView) -> [UIView] { [view] + view.subviews.flatMap { descendants($0) } }
               private func measure() {
@@ -135,18 +149,41 @@ jobs:
               }
           }
           SWIFT
-      - name: Compile tiny app and run actual UIKit
+      - name: Compile tiny simulator app
+        timeout-minutes: 2
         shell: bash
         run: |
           set -euo pipefail
           SDK="$(xcrun --sdk iphonesimulator --show-sdk-path)"
           SDKROOT="$SDK" xcrun --sdk iphonesimulator swiftc -sdk "$SDK" -target "$(uname -m)-apple-ios15.0-simulator" -module-name BannerProbe probe/AppUpdateBannerView.swift probe/ProbeHost.swift -o probe/BannerProbe.app/BannerProbe
           codesign --force --sign - probe/BannerProbe.app
+      - name: Pick available iPhone simulator
+        timeout-minutes: 1
+        shell: bash
+        run: |
+          set -euo pipefail
           xcrun simctl list devices available -j > results/devices.json
           SIMULATOR_ID="$(python3 -c 'import json; d=json.load(open("results/devices.json")); print(next(x["udid"] for k,v in sorted(d["devices"].items(),reverse=True) if "iOS-" in k for x in v if x.get("isAvailable") and x["name"].startswith("iPhone")))')"
+          echo "SIMULATOR_ID=$SIMULATOR_ID" >> "$GITHUB_ENV"
+          echo "Selected $SIMULATOR_ID"
+      - name: Boot chosen simulator
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
           xcrun simctl boot "$SIMULATOR_ID" || true
           xcrun simctl bootstatus "$SIMULATOR_ID" -b
+      - name: Install tiny probe
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          set -euo pipefail
           xcrun simctl install "$SIMULATOR_ID" probe/BannerProbe.app
+      - name: Launch probe and collect actual layout
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          set -euo pipefail
           xcrun simctl launch --console --terminate-running-process "$SIMULATOR_ID" app.ranennder.BannerLayoutProbe | tee results/console.log
           CONTAINER="$(xcrun simctl get_app_container "$SIMULATOR_ID" app.ranennder.BannerLayoutProbe data)"
           cp "$CONTAINER/Documents/layout-report.json" results/layout-report.json
