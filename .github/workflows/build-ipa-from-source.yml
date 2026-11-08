@@ -6,7 +6,7 @@ on:
       tag:
         description: Target application release tag (ai-X.Y.Z)
         required: true
-        default: ai-0.9.17
+        default: ai-0.9.18
         type: string
       source_asset_sha256:
         description: SHA-256 of the exact source ZIP approved for this build
