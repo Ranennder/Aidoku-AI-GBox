@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-08T07:53:22+0000",
+  "sourceUpdateTime": "2026-11-08T23:04:24+0000",
   "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon, облачная синхронизация истории и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-08T07:53:22+0000",
+      "appUpdateTime": "2026-11-08T23:04:24+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.16",
+      "appVersion": "0.9.17",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.16/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Синхронизация истории с Mihon AI при каждом открытии и каждые 10 секунд, пока приложение активно. Исправлены задержки отправки, сохранение позиции во время чтения и конфликты старой страницы. Бесплатное облако Koofr; нужен Mihon AI 0.1.34. Перед установкой подпиши IPA своим сертификатом."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.17/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Плашка о новой версии при запуске и возвращении в приложение. Кнопка «Обновить» открывает выпуск с IPA для установки через Feather/GBox. Проверка в фоне не блокирует чтение; ошибки сети не показываются. Перед установкой подпиши IPA своим сертификатом."
     }
   ]
 }
