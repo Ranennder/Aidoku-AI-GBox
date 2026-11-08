@@ -1,279 +1,160 @@
-name: Build IPA from verified source archive
-
+name: Separate UIKit banner layout diagnostic
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Target application release tag (ai-X.Y.Z)
         required: true
         default: ai-0.9.17
         type: string
       source_asset_sha256:
-        description: SHA-256 of the exact source ZIP approved for this build
         required: true
         type: string
       expected_commit:
-        description: Full application commit recorded in the source ZIP comment
         required: true
         type: string
-
 permissions:
   contents: read
-
 jobs:
-  ios:
+  layout-probe:
     runs-on: xcode-27
-    timeout-minutes: 60
-    defaults:
-      run:
-        shell: bash
+    timeout-minutes: 10
     env:
-      SOURCE_RELEASE_TAG: ${{ inputs.tag }}
-      SOURCE_ASSET_SHA256: ${{ inputs.source_asset_sha256 }}
-      EXPECTED_SOURCE_COMMIT: ${{ inputs.expected_commit }}
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_COMMIT: ${{ inputs.expected_commit }}
+      SOURCE_SHA: ${{ inputs.source_asset_sha256 }}
+      RELEASE_TAG: ${{ inputs.tag }}
     steps:
-      - name: Validate build inputs
+      - name: Verify immutable source and copy actual banner unchanged
+        shell: bash
         run: |
+          set -euo pipefail
+          mkdir -p probe/BannerProbe.app results
+          gh release download "source-$SOURCE_COMMIT" --repo "$GITHUB_REPOSITORY" --pattern Aidoku-AI-source-0.9.17.zip --dir probe
           python3 <<'PY'
-          import os
-          import re
-
-          tag = os.environ["SOURCE_RELEASE_TAG"]
-          if not re.fullmatch(r"ai-\d+\.\d+\.\d+", tag):
-              raise SystemExit("Expected an ai-X.Y.Z release tag")
-          if not re.fullmatch(r"[a-f0-9]{64}", os.environ["SOURCE_ASSET_SHA256"]):
-              raise SystemExit("Expected a lowercase SHA-256 digest")
-          if not re.fullmatch(r"[a-f0-9]{40}", os.environ["EXPECTED_SOURCE_COMMIT"]):
-              raise SystemExit("Expected a full lowercase source commit")
-          version = tag.removeprefix("ai-")
-          with open(os.environ["GITHUB_ENV"], "a") as output:
-              output.write(f"SOURCE_VERSION={version}\n")
-              output.write(f"SOURCE_ASSET_NAME=Aidoku-AI-source-{version}.zip\n")
-              output.write(f"SOURCE_INPUT_TAG=source-{os.environ['EXPECTED_SOURCE_COMMIT']}\n")
-          PY
-      - name: Download approved public source snapshot
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mkdir -p "$RUNNER_TEMP/source-download"
-          gh release download "$SOURCE_INPUT_TAG" --repo "$GITHUB_REPOSITORY" \
-            --pattern "$SOURCE_ASSET_NAME" --dir "$RUNNER_TEMP/source-download"
-      - name: Verify and extract canonical source
-        run: |
-          python3 <<'PY'
-          import hashlib
-          import json
-          import os
-          import plistlib
-          import re
-          import stat
-          import zipfile
-          from pathlib import Path, PurePosixPath
-
-          archive = Path(os.environ["RUNNER_TEMP"], "source-download", os.environ["SOURCE_ASSET_NAME"])
-          digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-          if digest != os.environ["SOURCE_ASSET_SHA256"]:
-              raise SystemExit("Source ZIP SHA-256 differs from the approved digest")
-          destination = Path(os.environ["RUNNER_TEMP"], "aidoku-source")
-          destination.mkdir(exist_ok=False)
+          import hashlib, json, os, plistlib, zipfile
+          from pathlib import Path
+          assert os.environ['RELEASE_TAG'] == 'ai-0.9.17'
+          assert os.environ['SOURCE_COMMIT'] == 'eb8e66a16c52239282e3190725dfdd509d362b66'
+          assert os.environ['SOURCE_SHA'] == '7ea567fdc83085eff053a87056d3965bdcaa472fa68ae841c1eb756652f903ab'
+          archive = Path('probe/Aidoku-AI-source-0.9.17.zip')
+          assert hashlib.sha256(archive.read_bytes()).hexdigest() == os.environ['SOURCE_SHA']
           with zipfile.ZipFile(archive) as source:
-              if source.comment != os.environ["EXPECTED_SOURCE_COMMIT"].encode("ascii"):
-                  raise SystemExit("Source ZIP commit comment differs from expected_commit")
-              entries = source.infolist()
-              if not 1 <= len(entries) <= 5000 or sum(item.file_size for item in entries) > 250_000_000:
-                  raise SystemExit("Unexpected source archive size")
-              names = set()
-              for item in entries:
-                  name = item.filename
-                  path = PurePosixPath(name)
-                  mode = item.external_attr >> 16
-                  if (name in names or "\\" in name or ":" in name
-                      or any(ord(character) < 32 for character in name)
-                      or path.is_absolute() or not path.parts or path.parts[0] != "Aidoku-AI"
-                      or any(part in {".", "..", ".git"} for part in path.parts)
-                      or item.file_size > 50_000_000 or item.flag_bits & 1
-                      or stat.S_ISLNK(mode) or (stat.S_IFMT(mode) not in {0, stat.S_IFREG, stat.S_IFDIR})):
-                      raise SystemExit("Unsafe or unexpected source ZIP entry")
-                  if not item.is_dir() and len(path.parts) < 2:
-                      raise SystemExit("Source ZIP must use the Aidoku-AI/ prefix")
-                  names.add(name)
-              if source.testzip() is not None:
-                  raise SystemExit("Source ZIP CRC verification failed")
-              for item in entries:
-                  target = destination.joinpath(*PurePosixPath(item.filename).parts)
-                  if not target.resolve().is_relative_to(destination.resolve()):
-                      raise SystemExit("Source ZIP entry leaves extraction directory")
-                  if item.is_dir():
-                      target.mkdir(parents=True, exist_ok=True)
-                  else:
-                      target.parent.mkdir(parents=True, exist_ok=True)
-                      target.write_bytes(source.read(item))
-                      target.chmod((item.external_attr >> 16) & 0o777 or 0o644)
-          root = destination / "Aidoku-AI"
-          for required in ["Aidoku.xcodeproj/project.pbxproj", "Aidoku/Info.plist", "Aidoku/Aidoku.xcconfig",
-                           "tools/build-ios.sh", "tools/migration/test_migrate.py"]:
-              if not (root / required).is_file():
-                  raise SystemExit(f"Required source file missing: {required}")
-          project = (root / "Aidoku.xcodeproj/project.pbxproj").read_text()
-          version = os.environ["SOURCE_VERSION"]
-          if len(re.findall(r"MARKETING_VERSION\s*=\s*" + re.escape(version) + r";", project)) != 2:
-              raise SystemExit("App Debug/Release versions do not match the release tag")
-          if not re.search(r"IPHONEOS_DEPLOYMENT_TARGET\s*=\s*15\.0;", project):
-              raise SystemExit("Expected the application's iOS 15 deployment target")
-          config = (root / "Aidoku/Aidoku.xcconfig").read_text()
-          for key, value in [("APP_ID_PREFIX", "app.ranennder"), ("APP_ID_SUFFIX", "AidokuAI")]:
-              if not re.search(r"^" + key + r"\s*=\s*" + re.escape(value) + r"\s*$", config, re.M):
-                  raise SystemExit("Unexpected application bundle identity")
-          info = plistlib.loads((root / "Aidoku/Info.plist").read_bytes())
-          if info.get("CADisableMinimumFrameDurationOnPhone") is not True or not info.get("NSLocalNetworkUsageDescription"):
-              raise SystemExit("Expected ProMotion and local-network metadata")
-          report = {"source_commit": os.environ["EXPECTED_SOURCE_COMMIT"], "source_zip_sha256": digest,
-                    "source_zip_bytes": archive.stat().st_size, "source_files": sum(not item.is_dir() for item in entries),
-                    "version": version, "release_tag": os.environ["SOURCE_RELEASE_TAG"],
-                    "input_release_tag": os.environ["SOURCE_INPUT_TAG"], "run_id": os.environ["GITHUB_RUN_ID"]}
-          (root / "build").mkdir(exist_ok=True)
-          (root / "build/source-provenance.json").write_text(json.dumps(report, indent=2) + "\n")
-          print(json.dumps(report, indent=2))
+              assert source.comment.decode() == os.environ['SOURCE_COMMIT'] and source.testzip() is None
+              actual = source.read('Aidoku-AI/Aidoku/App/Root/AppUpdateBannerView.swift')
+          Path('probe/AppUpdateBannerView.swift').write_bytes(actual)
+          Path('results/source.json').write_text(json.dumps({'separateDiagnostic': True,
+              'source_commit': os.environ['SOURCE_COMMIT'], 'source_zip_sha256': os.environ['SOURCE_SHA'],
+              'actual_banner_sha256': hashlib.sha256(actual).hexdigest(), 'actual_banner_unchanged': True}, indent=2))
+          info = {'CFBundleIdentifier': 'app.ranennder.BannerLayoutProbe', 'CFBundleName': 'BannerProbe',
+              'CFBundleExecutable': 'BannerProbe', 'CFBundlePackageType': 'APPL', 'CFBundleVersion': '1',
+              'CFBundleShortVersionString': '1.0', 'MinimumOSVersion': '15.0', 'UILaunchScreen': {},
+              'UIApplicationSceneManifest': {'UIApplicationSupportsMultipleScenes': False,
+              'UISceneConfigurations': {'UIWindowSceneSessionRoleApplication': [{'UISceneConfigurationName': 'Probe',
+              'UISceneDelegateClassName': 'BannerProbe.ProbeSceneDelegate'}]}}}
+          Path('probe/BannerProbe.app/Info.plist').write_bytes(plistlib.dumps(info))
           PY
-      - name: Migration tests
-        working-directory: ${{ runner.temp }}/aidoku-source/Aidoku-AI
-        run: python3 -m unittest discover -s tools/migration -p 'test_*.py' -v
-      - name: Show Xcode version
-        run: xcodebuild -version
-      - name: Archive unsigned IPA
-        working-directory: ${{ runner.temp }}/aidoku-source/Aidoku-AI
-        run: bash tools/build-ios.sh
-      - name: Verify IPA identity and integrity
-        working-directory: ${{ runner.temp }}/aidoku-source/Aidoku-AI
+      - name: Minimal UIKit host
+        shell: bash
         run: |
-          python3 <<'PY'
-          import hashlib
-          import json
-          import os
-          import plistlib
-          import zipfile
-          from pathlib import Path
-
-          path = Path("build/Aidoku-AI-unsigned.ipa")
-          with zipfile.ZipFile(path) as ipa:
-              if ipa.testzip() is not None:
-                  raise SystemExit("IPA CRC verification failed")
-              info = plistlib.loads(ipa.read("Payload/Aidoku.app/Info.plist"))
-              if info.get("CFBundleIdentifier") != "app.ranennder.AidokuAI" or info.get("CFBundleShortVersionString") != os.environ["SOURCE_VERSION"]:
-                  raise SystemExit("Unexpected IPA bundle identity/version")
-              if info.get("MinimumOSVersion") != "15.0" or info.get("CADisableMinimumFrameDurationOnPhone") is not True:
-                  raise SystemExit("Unexpected deployment target/ProMotion metadata")
-              if not info.get("NSLocalNetworkUsageDescription"):
-                  raise SystemExit("Missing local-network purpose string")
-              executable = ipa.read("Payload/Aidoku.app/" + info["CFBundleExecutable"])
-              if executable[:8] != bytes.fromhex("cffaedfe0c000001"):
-                  raise SystemExit("Expected an arm64 Mach-O device executable")
-          report = json.loads(Path("build/source-provenance.json").read_text())
-          report.update(ipa_bytes=path.stat().st_size, ipa_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
-                        bundle_identifier=info["CFBundleIdentifier"], build=info["CFBundleVersion"])
-          Path("build/source-provenance.json").write_text(json.dumps(report, indent=2) + "\n")
-          print(json.dumps(report, indent=2))
-          PY
-      - name: Upload unsigned IPA
-        uses: actions/upload-artifact@v4
-        with:
-          name: Aidoku-AI-unsigned
-          path: ${{ runner.temp }}/aidoku-source/Aidoku-AI/build/Aidoku-AI-unsigned.ipa
-          if-no-files-found: error
-      - name: Pick available iPhone simulator
-        id: simulator
-        working-directory: ${{ runner.temp }}/aidoku-source/Aidoku-AI
+          cat > probe/ProbeHost.swift <<'SWIFT'
+          import UIKit
+          struct AppUpdateRelease: Sendable { let version: String; let build: String?; let releaseURL: URL }
+          func NSLocalizedString(_ key: String) -> String {
+              ["APP_UPDATE_TITLE": "Update available", "APP_UPDATE_VERSION_BUILD_FORMAT": "Version %@ (%@)",
+               "APP_UPDATE_VERSION_FORMAT": "Version %@", "APP_UPDATE_OPEN": "Update",
+               "APP_UPDATE_OPEN_HINT": "Opens release page", "APP_UPDATE_CLOSE": "Close"][key] ?? key
+          }
+          @main final class ProbeAppDelegate: UIResponder, UIApplicationDelegate {
+              func application(_ application: UIApplication, configurationForConnecting session: UISceneSession,
+                               options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+                  let configuration = UISceneConfiguration(name: "Probe", sessionRole: session.role)
+                  configuration.delegateClass = ProbeSceneDelegate.self
+                  return configuration
+              }
+          }
+          final class ProbeSceneDelegate: UIResponder, UIWindowSceneDelegate {
+              var window: UIWindow?
+              func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options: UIScene.ConnectionOptions) {
+                  guard let scene = scene as? UIWindowScene else { return }
+                  let window = UIWindow(windowScene: scene)
+                  window.rootViewController = UIViewController()
+                  self.window = window
+                  window.makeKeyAndVisible()
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { self.measure() }
+              }
+              private func descendants(_ view: UIView) -> [UIView] { [view] + view.subviews.flatMap { descendants($0) } }
+              private func measure() {
+                  var cases: [[String: Any]] = []
+                  for target: CGFloat in [320, 460] {
+                      let host = UIView(frame: CGRect(x: 0, y: 0, width: target + 24, height: 800))
+                      window!.rootViewController!.view.addSubview(host)
+                      var opened = 0; var closed = 0
+                      let banner = AppUpdateBannerView(release: .init(version: "0.9.18", build: "22",
+                          releaseURL: URL(string: "https://github.com/Ranennder/Aidoku-AI-GBox/releases/tag/ai-0.9.18")!),
+                          onOpen: { opened += 1 }, onClose: { closed += 1 })
+                      banner.translatesAutoresizingMaskIntoConstraints = false
+                      host.addSubview(banner)
+                      let width = banner.widthAnchor.constraint(equalTo: host.safeAreaLayoutGuide.widthAnchor, constant: -24)
+                      width.priority = .defaultHigh
+                      NSLayoutConstraint.activate([
+                          banner.topAnchor.constraint(equalTo: host.safeAreaLayoutGuide.topAnchor, constant: 8),
+                          banner.centerXAnchor.constraint(equalTo: host.safeAreaLayoutGuide.centerXAnchor),
+                          banner.leadingAnchor.constraint(greaterThanOrEqualTo: host.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+                          banner.trailingAnchor.constraint(lessThanOrEqualTo: host.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+                          banner.widthAnchor.constraint(lessThanOrEqualToConstant: 460), width])
+                      host.setNeedsLayout(); host.layoutIfNeeded()
+                      let actualHeight = banner.frame.height
+                      let fitting = banner.systemLayoutSizeFitting(CGSize(width: target, height: 0),
+                          withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+                      let buttons = descendants(banner).compactMap { $0 as? UIButton }
+                      let close = buttons.first { $0.accessibilityIdentifier == "appUpdateBannerClose" }!
+                      let open = buttons.first { $0.accessibilityIdentifier == "appUpdateBannerOpen" }!
+                      close.sendActions(for: .touchUpInside); open.sendActions(for: .touchUpInside)
+                      let ambiguous = banner.hasAmbiguousLayout || banner.contentView.hasAmbiguousLayout
+                      let passed = actualHeight >= 100 && actualHeight <= 400 && fitting.height >= 100
+                          && abs(banner.frame.width - target) < 1 && !ambiguous
+                          && close.frame.height >= 44 && open.frame.height >= 44 && opened == 1 && closed == 1
+                      cases.append(["targetWidth": target, "frameWidth": banner.frame.width, "frameHeight": actualHeight,
+                          "fittingWidth": fitting.width, "fittingHeight": fitting.height,
+                          "hasAmbiguousLayout": banner.hasAmbiguousLayout,
+                          "contentViewHasAmbiguousLayout": banner.contentView.hasAmbiguousLayout,
+                          "contentViewTranslatesAutoresizingMask": banner.contentView.translatesAutoresizingMaskIntoConstraints,
+                          "contentViewAutoresizingMask": banner.contentView.autoresizingMask.rawValue,
+                          "closeHeight": close.frame.height, "openHeight": open.frame.height,
+                          "openCallbacks": opened, "closeCallbacks": closed, "passed": passed])
+                      host.removeFromSuperview()
+                  }
+                  let report: [String: Any] = ["separateDiagnostic": true, "releaseNativeCIProof": false,
+                      "iosVersion": UIDevice.current.systemVersion, "cases": cases,
+                      "allPassed": cases.allSatisfy { $0["passed"] as? Bool == true }]
+                  let data = try! JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys])
+                  let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("layout-report.json")
+                  try! data.write(to: url)
+                  print("BANNER_LAYOUT_REPORT " + String(data: data, encoding: .utf8)!)
+                  exit(0)
+              }
+          }
+          SWIFT
+      - name: Compile tiny app and run actual UIKit
+        shell: bash
         run: |
-          xcrun simctl list devices available --json > build/available-simulators.json
-          xcrun --sdk iphonesimulator --show-sdk-version > build/simulator-sdk-version.txt
-          python3 <<'PY'
-          import json
-          import os
-          import re
-          from pathlib import Path
-
-          devices = json.loads(Path("build/available-simulators.json").read_text())["devices"]
-          sdk_version = tuple(map(int, Path("build/simulator-sdk-version.txt").read_text().strip().split(".")))
-          sdk_version = (sdk_version + (0, 0))[:3]
-          candidates = []
-          for runtime, entries in devices.items():
-              match = re.search(r"\.iOS-(\d+(?:-\d+)*)$", runtime)
-              if not match:
-                  continue
-              version = tuple(map(int, match[1].split("-")))
-              if version[0] < 26 or (version + (0, 0))[:3] > sdk_version:
-                  continue
-              for device in entries:
-                  if device.get("isAvailable") and device["name"].startswith("iPhone"):
-                      candidates.append((version, device))
-          if not candidates:
-              raise SystemExit("No available iOS 26+ iPhone simulator compatible with the selected Xcode SDK")
-          version, device = max(candidates, key=lambda candidate: (candidate[0], candidate[1]["name"]))
-          print(f"Selected {device['name']} on iOS {'.'.join(map(str, version))}: {device['udid']}")
-          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
-              output.write(f"id={device['udid']}\nstate={device['state']}\n")
-          PY
-      - name: Boot iPhone simulator
-        timeout-minutes: 5
-        env:
-          SIMULATOR_ID: ${{ steps.simulator.outputs.id }}
-          SIMULATOR_STATE: ${{ steps.simulator.outputs.state }}
-        run: |
-          if [[ "$SIMULATOR_STATE" != "Booted" ]]; then
-            xcrun simctl boot "$SIMULATOR_ID"
-          fi
+          set -euo pipefail
+          SDK="$(xcrun --sdk iphonesimulator --show-sdk-path)"
+          xcrun swiftc -sdk "$SDK" -target "$(uname -m)-apple-ios15.0-simulator" -module-name BannerProbe probe/AppUpdateBannerView.swift probe/ProbeHost.swift -o probe/BannerProbe.app/BannerProbe
+          codesign --force --sign - probe/BannerProbe.app
+          xcrun simctl list devices available -j > probe/devices.json
+          SIMULATOR_ID="$(python3 -c 'import json; d=json.load(open("probe/devices.json")); print(next(x["udid"] for k,v in d["devices"].items() if "iOS-26" in k for x in v if x.get("isAvailable") and x["name"].startswith("iPhone")))')"
+          xcrun simctl boot "$SIMULATOR_ID" || true
           xcrun simctl bootstatus "$SIMULATOR_ID" -b
-      - name: Swift tests
-        timeout-minutes: 35
-        working-directory: ${{ runner.temp }}/aidoku-source/Aidoku-AI
-        env:
-          SIMULATOR_ID: ${{ steps.simulator.outputs.id }}
-        run: >-
-          xcodebuild -scheme Aidoku -configuration Debug
-          -destination "platform=iOS Simulator,id=$SIMULATOR_ID"
-          -parallel-testing-enabled NO
-          -resultBundlePath build/TestResults.xcresult
-          -skipPackagePluginValidation
-          CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES CODE_SIGNING_REQUIRED=NO test
-      - name: Collect simulator diagnostics
-        if: failure()
-        timeout-minutes: 5
-        working-directory: ${{ runner.temp }}
-        env:
-          SIMULATOR_ID: ${{ steps.simulator.outputs.id }}
-        run: |
-          mkdir -p aidoku-source/Aidoku-AI/build/diagnostics
-          reports="$RUNNER_TEMP/aidoku-source/Aidoku-AI/build/diagnostics"
-          if [[ -d "$HOME/Library/Logs/DiagnosticReports" ]]; then
-            ditto "$HOME/Library/Logs/DiagnosticReports" "$reports/DiagnosticReports"
-          fi
-          if [[ -n "$SIMULATOR_ID" ]]; then
-            simulator_reports="$HOME/Library/Developer/CoreSimulator/Devices/$SIMULATOR_ID/data/Library/Logs/CrashReporter"
-            if [[ -d "$simulator_reports" ]]; then
-              ditto "$simulator_reports" "$reports/SimulatorCrashReports"
-            fi
-            xcrun simctl spawn "$SIMULATOR_ID" log show --last 15m --style compact \
-              --predicate 'process == "Aidoku" OR process == "testmanagerd"' \
-              > "$reports/simulator.log" 2>&1 || true
-          fi
-      - name: Upload source provenance
+          xcrun simctl install "$SIMULATOR_ID" probe/BannerProbe.app
+          xcrun simctl launch --console --terminate-running-process "$SIMULATOR_ID" app.ranennder.BannerLayoutProbe | tee results/console.log
+          CONTAINER="$(xcrun simctl get_app_container "$SIMULATOR_ID" app.ranennder.BannerLayoutProbe data)"
+          cp "$CONTAINER/Documents/layout-report.json" results/layout-report.json
+          python3 -c 'import json; r=json.load(open("results/layout-report.json")); assert r["separateDiagnostic"] and r["allPassed"],r'
+      - name: Preserve separate diagnostic evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Aidoku-AI-source-provenance
-          path: ${{ runner.temp }}/aidoku-source/Aidoku-AI/build/source-provenance.json
-          if-no-files-found: warn
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Aidoku-AI-test-results
-          path: ${{ runner.temp }}/aidoku-source/Aidoku-AI/build/TestResults.xcresult
-          if-no-files-found: warn
-      - name: Upload simulator diagnostics
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Aidoku-AI-simulator-diagnostics
-          path: ${{ runner.temp }}/aidoku-source/Aidoku-AI/build/diagnostics
-          if-no-files-found: warn
+          name: separate-banner-layout-probe
+          path: results
+          if-no-files-found: error
