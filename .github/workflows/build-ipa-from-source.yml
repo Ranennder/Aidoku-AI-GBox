@@ -140,10 +140,10 @@ jobs:
         run: |
           set -euo pipefail
           SDK="$(xcrun --sdk iphonesimulator --show-sdk-path)"
-          xcrun swiftc -sdk "$SDK" -target "$(uname -m)-apple-ios15.0-simulator" -module-name BannerProbe probe/AppUpdateBannerView.swift probe/ProbeHost.swift -o probe/BannerProbe.app/BannerProbe
+          SDKROOT="$SDK" xcrun --sdk iphonesimulator swiftc -sdk "$SDK" -target "$(uname -m)-apple-ios15.0-simulator" -module-name BannerProbe probe/AppUpdateBannerView.swift probe/ProbeHost.swift -o probe/BannerProbe.app/BannerProbe
           codesign --force --sign - probe/BannerProbe.app
-          xcrun simctl list devices available -j > probe/devices.json
-          SIMULATOR_ID="$(python3 -c 'import json; d=json.load(open("probe/devices.json")); print(next(x["udid"] for k,v in d["devices"].items() if "iOS-26" in k for x in v if x.get("isAvailable") and x["name"].startswith("iPhone")))')"
+          xcrun simctl list devices available -j > results/devices.json
+          SIMULATOR_ID="$(python3 -c 'import json; d=json.load(open("results/devices.json")); print(next(x["udid"] for k,v in sorted(d["devices"].items(),reverse=True) if "iOS-" in k for x in v if x.get("isAvailable") and x["name"].startswith("iPhone")))')"
           xcrun simctl boot "$SIMULATOR_ID" || true
           xcrun simctl bootstatus "$SIMULATOR_ID" -b
           xcrun simctl install "$SIMULATOR_ID" probe/BannerProbe.app
