@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.18",
+          "buildVersion": "22",
+          "date": "2026-11-09T04:52:23Z",
+          "localizedDescription": "Вход через Google и синхронизация истории с Mihon AI через Google Drive без ПК. Обмен сразу при открытии и каждые 10 секунд в активном приложении. Сохранён WebDAV; нужен Mihon AI 0.1.35.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.18/Aidoku-AI-unsigned.ipa",
+          "size": 15349582,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.17",
           "buildVersion": "21",
           "date": "2026-11-08T23:04:24Z",
@@ -102,11 +111,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.17",
-      "versionDate": "2026-11-08T23:04:24Z",
-      "versionDescription": "Плашка о новой версии при запуске и возвращении в приложение. Кнопка «Обновить» открывает выпуск с IPA для установки через Feather/GBox. Проверка в фоне не блокирует чтение; ошибки сети не показываются.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.17/Aidoku-AI-unsigned.ipa",
-      "size": 15266636,
+      "version": "0.9.18",
+      "versionDate": "2026-11-09T04:52:23Z",
+      "versionDescription": "Вход через Google и синхронизация истории с Mihon AI через Google Drive без ПК. Обмен сразу при открытии и каждые 10 секунд в активном приложении. Сохранён WebDAV; нужен Mihon AI 0.1.35.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.18/Aidoku-AI-unsigned.ipa",
+      "size": 15349582,
       "minOSVersion": "15.0"
     }
   ],
