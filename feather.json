@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.19",
+          "buildVersion": "23",
+          "date": "2026-11-10T01:29:40Z",
+          "localizedDescription": "Массовое добавление тайтлов из облачной истории через установленные источники. Прогресс, отмена, повтор ошибок и локальный журнал синхронизации и импорта. Google Drive и WebDAV сохранены; для общего формата нужен Mihon AI 0.1.36.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.19/Aidoku-AI-unsigned.ipa",
+          "size": 15501898,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.18",
           "buildVersion": "22",
           "date": "2026-11-09T04:52:23Z",
@@ -111,11 +120,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.18",
-      "versionDate": "2026-11-09T04:52:23Z",
-      "versionDescription": "Вход через Google и синхронизация истории с Mihon AI через Google Drive без ПК. Обмен сразу при открытии и каждые 10 секунд в активном приложении. Сохранён WebDAV; нужен Mihon AI 0.1.35.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.18/Aidoku-AI-unsigned.ipa",
-      "size": 15349582,
+      "version": "0.9.19",
+      "versionDate": "2026-11-10T01:29:40Z",
+      "versionDescription": "Массовое добавление тайтлов из облачной истории через установленные источники. Прогресс, отмена, повтор ошибок и локальный журнал синхронизации и импорта. Google Drive и WebDAV сохранены; для общего формата нужен Mihon AI 0.1.36.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.19/Aidoku-AI-unsigned.ipa",
+      "size": 15501898,
       "minOSVersion": "15.0"
     }
   ],
