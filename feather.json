@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.21",
+          "buildVersion": "25",
+          "date": "2026-11-10T12:41:50Z",
+          "localizedDescription": "Исправлены пустые плитки больших страниц при прокрутке. Импорт показывает источник, этап и время, ограничивает попытку загрузки 60 секундами и позволяет пропустить тайтл. При HTTP 429 добавлены паузы 5–15 секунд и ограниченные повторы. Новый пункт «Фоновая работа и Dynamic Island» включает системный прогресс ручных задач на iOS 26; система может остановить работу. Уже сохранённые тайтлы остаются в библиотеке.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.21/Aidoku-AI-unsigned.ipa",
+          "size": 15608427,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.20",
           "buildVersion": "24",
           "date": "2026-11-10T09:16:04Z",
@@ -129,11 +138,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.20",
-      "versionDate": "2026-11-10T09:16:04Z",
-      "versionDescription": "Кнопки импорта всех тайтлов и повтора ошибок доступны во время синхронизации с облаком. Остальные проверки импорта и аккаунта сохранены.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.20/Aidoku-AI-unsigned.ipa",
-      "size": 15501904,
+      "version": "0.9.21",
+      "versionDate": "2026-11-10T12:41:50Z",
+      "versionDescription": "Исправлены пустые плитки больших страниц при прокрутке. Импорт показывает источник, этап и время, ограничивает попытку загрузки 60 секундами и позволяет пропустить тайтл. При HTTP 429 добавлены паузы 5–15 секунд и ограниченные повторы. Новый пункт «Фоновая работа и Dynamic Island» включает системный прогресс ручных задач на iOS 26; система может остановить работу. Уже сохранённые тайтлы остаются в библиотеке.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.21/Aidoku-AI-unsigned.ipa",
+      "size": 15608427,
       "minOSVersion": "15.0"
     }
   ],
