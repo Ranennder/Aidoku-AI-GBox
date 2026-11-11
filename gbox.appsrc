@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-10T12:41:50+0000",
+  "sourceUpdateTime": "2026-11-11T23:29:12+0000",
   "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon, облачная синхронизация истории и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-10T12:41:50+0000",
+      "appUpdateTime": "2026-11-11T23:29:12+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.21",
+      "appVersion": "0.9.22",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.21/Aidoku-AI-unsigned.ipa",
-      "appDescription": "Исправлены пустые плитки больших страниц при прокрутке. Импорт показывает источник, этап и время, ограничивает попытку загрузки 60 секундами и позволяет пропустить тайтл. При HTTP 429 добавлены паузы 5–15 секунд и ограниченные повторы. Новый пункт «Фоновая работа и Dynamic Island» включает системный прогресс ручных задач на iOS 26; система может остановить работу. Уже сохранённые тайтлы остаются в библиотеке. Подпиши IPA своим сертификатом перед установкой."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.22/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Обновлён кеш AI-страниц и проверка обработки исходных пикселей. Для выбранной ширины нужен Companion 0.1.37 или новее: AI получает исходник, размер меняется после обработки. Старые AI-результаты создаются заново, оригиналы и история сохраняются. Подпиши IPA своим сертификатом перед установкой."
     }
   ]
 }
