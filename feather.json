@@ -12,6 +12,15 @@
       "iconURL": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
       "versions": [
         {
+          "version": "0.9.24",
+          "buildVersion": "28",
+          "date": "2026-11-12T16:48:49Z",
+          "localizedDescription": "Постоянная синхронизация библиотеки и истории в обе стороны с Mihon AI 0.1.39 через Google Drive или WebDAV, без файла и ПК. Избранное добавляется и удаляется с любого телефона. Первая настройка использует реальное избранное Android и сохраняет резервную копию; старый импорт истории не отправляется как новая библиотека. Недостающие карточки загружаются автоматически через источники. История и загрузки сохраняются.",
+          "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.24/Aidoku-AI-unsigned.ipa",
+          "size": 16128628,
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.9.23",
           "buildVersion": "27",
           "date": "2026-11-12T02:49:46Z",
@@ -156,11 +165,11 @@
           "minOSVersion": "15.0"
         }
       ],
-      "version": "0.9.23",
-      "versionDate": "2026-11-12T02:49:46Z",
-      "versionDescription": "История чтения больше не добавляет все прочитанные тайтлы в библиотеку. Избранное Android, включая непрочитанные тайтлы, можно разово восстановить через Google Drive без файла и ПК: недостающие данные загружаются через нативные источники. Применение требует точного сопоставления всех избранных и неизменности библиотеки iPhone; защитная копия создаётся автоматически. История, главы и загрузки сохраняются. Нужен Mihon AI 0.1.38.",
-      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.23/Aidoku-AI-unsigned.ipa",
-      "size": 15903714,
+      "version": "0.9.24",
+      "versionDate": "2026-11-12T16:48:49Z",
+      "versionDescription": "Постоянная синхронизация библиотеки и истории в обе стороны с Mihon AI 0.1.39 через Google Drive или WebDAV, без файла и ПК. Избранное добавляется и удаляется с любого телефона. Первая настройка использует реальное избранное Android и сохраняет резервную копию; старый импорт истории не отправляется как новая библиотека. Недостающие карточки загружаются автоматически через источники. История и загрузки сохраняются.",
+      "downloadURL": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.24/Aidoku-AI-unsigned.ipa",
+      "size": 16128628,
       "minOSVersion": "15.0"
     }
   ],

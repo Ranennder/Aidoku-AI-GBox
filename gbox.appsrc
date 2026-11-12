@@ -5,7 +5,7 @@
   "sourceLinkTitle": "GitHub",
   "sourceLinkUrl": "https://github.com/Ranennder/Aidoku-AI-GBox",
   "sourceImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-  "sourceUpdateTime": "2026-11-12T02:49:46+0000",
+  "sourceUpdateTime": "2026-11-12T16:48:49+0000",
   "sourceDescription": "Aidoku AI для iPhone: нативные источники манги, импорт Mihon, облачная синхронизация истории и улучшение страниц на ПК.",
   "appCategories": [
     "Манга"
@@ -14,12 +14,12 @@
     {
       "appType": "SELF_SIGN",
       "appCateIndex": 0,
-      "appUpdateTime": "2026-11-12T02:49:46+0000",
+      "appUpdateTime": "2026-11-12T16:48:49+0000",
       "appName": "Aidoku AI",
-      "appVersion": "0.9.23",
+      "appVersion": "0.9.24",
       "appImage": "https://raw.githubusercontent.com/Ranennder/Aidoku-AI-GBox/main/icon.png",
-      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.23/Aidoku-AI-unsigned.ipa",
-      "appDescription": "История чтения больше не добавляет все прочитанные тайтлы в библиотеку. Избранное Android, включая непрочитанные тайтлы, можно разово восстановить через Google Drive без файла и ПК: недостающие данные загружаются через нативные источники. Применение требует точного сопоставления всех избранных и неизменности библиотеки iPhone; защитная копия создаётся автоматически. История, главы и загрузки сохраняются. Нужен Mihon AI 0.1.38. Подпиши IPA своим сертификатом перед установкой."
+      "appPackage": "https://github.com/Ranennder/Aidoku-AI-GBox/releases/download/ai-0.9.24/Aidoku-AI-unsigned.ipa",
+      "appDescription": "Постоянная синхронизация библиотеки и истории в обе стороны с Mihon AI 0.1.39 через Google Drive или WebDAV, без файла и ПК. Избранное добавляется и удаляется с любого телефона. Первая настройка использует реальное избранное Android и сохраняет резервную копию; старый импорт истории не отправляется как новая библиотека. Недостающие карточки загружаются автоматически через источники. История и загрузки сохраняются. Подпиши IPA своим сертификатом перед установкой."
     }
   ]
 }
